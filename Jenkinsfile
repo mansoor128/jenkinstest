@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-              sh 'composer install'
+              sh 'docker build -t mansoorclc/test .'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+               sh 'composer install'
             }
         }
         stage('Deploy') {
