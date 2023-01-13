@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                //sh 'docker build -t mansoorclc/test .'
+                  echo 'Deploying....'
 
             }
         }
