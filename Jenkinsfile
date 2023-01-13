@@ -4,18 +4,17 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                  echo 'Deploying....'
+              sh 'composer install'
             }
         }
         stage('Test') {
             steps {
-               sh 'composer install'
+                echo 'Testing..'
             }
         }
         stage('Deploy') {
             steps {
-                  echo 'Deploying....'
-
+                echo 'Deploying....'
             }
         }
     }
