@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                sh 'docker build -t mansoorclc/testjenkins .'
             }
         }
         stage('Deploy') {
