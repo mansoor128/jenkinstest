@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-              sh 'docker build -t mansoorclc/test .'
+                  echo 'Deploying....'
             }
         }
         stage('Test') {
@@ -14,7 +14,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh 'docker build -t mansoorclc/test .'
+
             }
         }
     }
