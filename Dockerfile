@@ -1,5 +1,5 @@
 FROM ubuntu
-RUN apt install default-jdk
+#RUN apt install default-jdk
 RUN mkdir /opt/tomcat/
 WORKDIR /opt/tomcat
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.71/bin/apache-tomcat-9.0.71.tar.gz /opt/tomcat
