@@ -1,9 +1,11 @@
-FROM ubuntu
-#RUN apt install default-jdk
-RUN mkdir /opt/tomcat/
-WORKDIR /opt/tomcat
-ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.71/bin/apache-tomcat-9.0.71.tar.gz /opt/tomcat
-RUN tar xvfz apache*.tar.gz
-RUN mv apache-tomcat-9.0.71/* /opt/tomcat 
-EXPOSE 8080
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+FROM php:8.1.8-fpm
+ENV APP_HOME /var/www/html
+COPY --from=composer_build /app/ /var/www/html/
+RUN usermod -u 1000 www-data && groupmod -g 1000 www-data \
+    && chown -R www-data:www-data /var/www/html \
+    && apt-get update && apt-get install -y nginx \
+    && rm /etc/nginx/sites-enabled/default \
+    && echo "server { listen 80; server_name localhost; root /var/www/html/public; index index.php index.html index.htm; location / { try_files \$uri \$uri/ /index.php?\$query_string; } location ~ \\.php\$ { include snippets/fastcgi-php.conf; fastcgi_pass unix:/var/run/php/php8.1-fpm.sock; } }" > /etc/nginx/sites-available/default \
+    && ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+ENTRYPOINT []
+CMD nginx -g "daemon off;"
